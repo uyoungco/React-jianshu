@@ -19,80 +19,80 @@ import {
   SearchInfoList
 } from './style'
 
-const getListArea = (show) => {
-  if(show) {
+
+class Header extends React.Component {
+  getListArea() {
+    if(this.props.focused) {
+      return (
+        <SearchInfo >
+          <SearchInfoTitle>
+            热门搜索
+            <SearchInfoSwitch>换一批</SearchInfoSwitch>
+          </SearchInfoTitle>
+          <SearchInfoList>
+            {
+              this.props.list.map((item) => {
+                return <SearchInfoItem key={item}>{item}</SearchInfoItem>
+              })
+            }
+          </SearchInfoList>
+        </SearchInfo>
+      )
+    } else {
+      return null
+    }
+  }
+  render() {
     return (
-      <SearchInfo >
-        <SearchInfoTitle>
-          热门搜索
-          <SearchInfoSwitch>换一批</SearchInfoSwitch>
-        </SearchInfoTitle>
-        <SearchInfoList>
-          <SearchInfoItem>教育</SearchInfoItem>
-          <SearchInfoItem>教育</SearchInfoItem>
-          <SearchInfoItem>教育</SearchInfoItem>
-          <SearchInfoItem>教育</SearchInfoItem>
-          <SearchInfoItem>教育</SearchInfoItem>
-          <SearchInfoItem>教育</SearchInfoItem>
-          <SearchInfoItem>教育</SearchInfoItem>
-        </SearchInfoList>
-      </SearchInfo>
+      <HeaderWrapper>
+        <Logo />
+        <Nav>
+          <NavItem className="left active">首页</NavItem>
+          <NavItem className="left">下载APP</NavItem>
+          <NavItem className="right">登录</NavItem>
+          <NavItem className="right">
+            <i className="iconfont">&#xe636;</i>
+          </NavItem>
+          <SearchWrapper>
+            <CSSTransition
+              in={this.props.focused}
+              timeout={200}
+              classNames="slide"
+            >
+              <NavSearch
+                className={this.props.focused ? 'focused' : ''}
+                onFocus={() => this.props.handleInputFocus()}
+                onBlur={() => this.props.handleInputBlur()}
+              ></NavSearch>
+            </CSSTransition>
+            <i
+              className={this.props.focused ? 'focused iconfont' : 'iconfont'}
+            >&#xe60d;</i>
+            {this.getListArea()}
+          </SearchWrapper>
+        </Nav>
+        <Addition>
+          <Button className='reg'>注册</Button>
+          <Button className='writting'>
+            <i className="iconfont">&#xe615;</i>
+            写文章
+          </Button>
+        </Addition>
+      </HeaderWrapper>
     )
-  } else {
-    return null
   }
 }
 
-const Header = (props) => {
-  return (
-    <HeaderWrapper>
-      <Logo />
-      <Nav>
-        <NavItem className="left active">首页</NavItem>
-        <NavItem className="left">下载APP</NavItem>
-        <NavItem className="right">登录</NavItem>
-        <NavItem className="right">
-          <i className="iconfont">&#xe636;</i>
-        </NavItem>
-        <SearchWrapper>
-          <CSSTransition
-            in={props.focused}
-            timeout={200}
-            classNames="slide"
-          >
-            <NavSearch
-              className={props.focused ? 'focused' : ''}
-              onFocus={() => props.handleInputFocus()}
-              onBlur={() => props.handleInputBlur()}
-            ></NavSearch>
-          </CSSTransition>
-          <i
-            className={props.focused ? 'focused iconfont' : 'iconfont'}
-          >&#xe60d;</i>
-          {getListArea(props.focused)}
-        </SearchWrapper>
-      </Nav>
-      <Addition>
-        <Button className='reg'>注册</Button>
-        <Button className='writting'>
-          <i className="iconfont">&#xe615;</i>
-          写文章
-        </Button>
-      </Addition>
-    </HeaderWrapper>
-  )
-}
-
-
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
-    focused: state.getIn(['header', 'focused'])
+    focused: state.getIn(['header', 'focused']),
+    list: state.getIn(['header', 'list'])
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     handleInputFocus() {
+      dispatch(actionCreators.getList())
       dispatch(actionCreators.sratchFocus())
     },
     handleInputBlur() {
