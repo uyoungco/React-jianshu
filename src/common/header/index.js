@@ -36,7 +36,7 @@ class Header extends React.Component {
     const pageLsit = []
     if(newList.length) {
       for(let i = (page-1) * 10; i < page * 10; i++) {
-        console.log(newList[i])
+        if(!newList[i]) continue
         pageLsit.push(
           <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
         )
@@ -50,7 +50,12 @@ class Header extends React.Component {
         >
           <SearchInfoTitle>
             热门搜索
-            <SearchInfoSwitch onClick={() => handleChangePage(page, totalPage)}>换一批</SearchInfoSwitch>
+            <SearchInfoSwitch
+              onClick={() => handleChangePage(page, totalPage, this.spinIcon)}
+            >
+            <i ref={(icon)=> {this.spinIcon = icon}} className="iconfont spin">&#xe851;</i>
+            换一批
+            </SearchInfoSwitch>
           </SearchInfoTitle>
           <SearchInfoList>
             {pageLsit}
@@ -86,7 +91,7 @@ class Header extends React.Component {
               ></NavSearch>
             </CSSTransition>
             <i
-              className={focused ? 'focused iconfont' : 'iconfont'}
+              className={focused ? 'focused iconfont zoom' : 'iconfont zoom'}
             >&#xe60d;</i>
             {this.getListArea()}
           </SearchWrapper>
@@ -127,7 +132,15 @@ const mapDispatchToProps = (dispatch) => {
     handleMouseLeave() {
       dispatch(actionCreators.mouseLeave())
     },
-    handleChangePage(page, totalPage) {
+    handleChangePage(page, totalPage, spin) {
+      let originAngle = spin.style.transform.replace(/[^0-9]/ig, '')
+      if(originAngle) {
+        originAngle = parseInt(originAngle, 10)
+      } else {
+        originAngle = 0
+      }
+      spin.style.transform = `rotate(${originAngle + 360}deg)`
+      console.log(spin.style.transform)
       if (page < totalPage) {
         dispatch(actionCreators.changePage(page + 1))
       } else {
