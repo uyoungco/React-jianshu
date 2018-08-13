@@ -4,6 +4,9 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import Header from './common/header'
 import store from './store'
 
+import Home from './pages/home'
+import Detail from './pages/detail'
+
 class App extends Component {
   render() {
     return (
@@ -12,8 +15,8 @@ class App extends Component {
           <Header></Header>
           <BrowserRouter>
             <div>
-              <Route path="/" exact render={() => <div>Hoem</div> }></Route>
-              <Route path="/detail" render={() => <div>detail</div> }></Route>
+              <Route path="/" exact component={Home}></Route>
+              <Route path="/detail" component={Detail}></Route>
             </div>
           </BrowserRouter>
         </div>
