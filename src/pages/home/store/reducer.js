@@ -21,6 +21,13 @@ const defaultState = fromJS({
     title: '【乡土】彩云归处（92）    望天树',
     desc: '望天树只分布在西双版纳的补蚌和广纳里寨至景飘一带方圆20平方公里的范围内。聂远征他们所住的这个村寨距离那里有将近10公里的山路。 清晨起来，在一...',
     imgUrl: '//upload-images.jianshu.io/upload_images/9616950-5167df0cbb61700d.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240'
+  }],
+  recommendList: [{
+    id: 1,
+    imgUrl: '/api/banner-s-3-7123fd94750759acf7eca05b871e9d17.png'
+  },{
+    id: 2,
+    imgUrl: '/api/banner-s-3-7123fd94750759acf7eca05b871e9d17.png'
   }]
 });
 

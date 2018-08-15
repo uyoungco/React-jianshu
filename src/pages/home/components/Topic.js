@@ -19,7 +19,6 @@ class Topic extends Component {
             </TopItem>
           ))
         }
-        
       </TopicWrapper>
     )
   }
