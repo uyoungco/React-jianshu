@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { actionCreators } from '../store'
 
 import {
@@ -9,21 +11,45 @@ import {
 } from '../style'
 
 class List extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      show: true
+    }
+  }
+  hanedleShow() {
+    this.setState({
+      show: this.state.show ? false : true
+    })
+  }
+
   render() {
     const { list, getMoreList, page } = this.props
     return(
       <div>
+        <button onClick={() => this.hanedleShow()}>显示隐藏</button>
+        <TransitionGroup
+        >
         {
           list.map(item => (
-            <ListItem key={item.get('id')}>
-              <img className="pic" src={item.get('imgUrl')} alt={item.get('title')} />
-              <ListInfo>
-                <h3 className="title">{item.get('title')}</h3>
-                <p className="desc">{item.get('desc')}</p>
-              </ListInfo>
-            </ListItem>
+            <CSSTransition
+              timeout={1000}
+              classNames="list"
+              unmountOnExit //隐藏时移除DOM
+              appear = {true}
+              key={item.get('id')}
+            >
+              <ListItem>
+                <img className="pic" src={item.get('imgUrl')} alt={item.get('title')} />
+                <ListInfo>
+                  <h3 className="title">{item.get('title')}</h3>
+                  <p className="desc">{item.get('desc')}</p>
+                </ListInfo>
+              </ListItem>
+            </CSSTransition>
           ))
         }
+        </TransitionGroup>
         <LoadMore onClick={() => getMoreList(page)}>更多文字</LoadMore>
       </div>
     )

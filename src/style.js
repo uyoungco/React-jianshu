@@ -44,4 +44,26 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+.list-enter, .list-appear {
+	opacity: 0;
+}
+.list-enter-active, .list-appear-active {
+	opacity: 1;
+	transition: opacity 1s ease-in;
+}
+.list-enter-done {
+	opacity: 1;
+}
+
+.list-exit {
+	opacity: 1;
+}
+.list-exit-active {
+	opacity: 0;
+	transition: opacity 1s ease-in;
+}
+.list-exit-done {
+	opacity: 0;
+}
 `
