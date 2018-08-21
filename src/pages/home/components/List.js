@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { actionCreators } from '../store'
@@ -10,7 +11,7 @@ import {
   LoadMore
 } from '../style'
 
-class List extends Component {
+class List extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -39,13 +40,15 @@ class List extends Component {
               appear = {true}
               key={item.get('id')}
             >
-              <ListItem>
-                <img className="pic" src={item.get('imgUrl')} alt={item.get('title')} />
-                <ListInfo>
-                  <h3 className="title">{item.get('title')}</h3>
-                  <p className="desc">{item.get('desc')}</p>
-                </ListInfo>
-              </ListItem>
+              <Link to="/detail" >
+                <ListItem>
+                  <img className="pic" src={item.get('imgUrl')} alt={item.get('title')} />
+                  <ListInfo>
+                    <h3 className="title">{item.get('title')}</h3>
+                    <p className="desc">{item.get('desc')}</p>
+                  </ListInfo>
+                </ListItem>
+              </Link>
             </CSSTransition>
           ))
         }

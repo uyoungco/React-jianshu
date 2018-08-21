@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux'
 import { actionCreators } from './store/index'
 
@@ -13,7 +13,7 @@ import {
   BackTop
 } from './style'
 
-class Home extends Component {
+class Home extends PureComponent {
   componentDidMount() {
     this.props.changeHomeData()
     this.bindEvents()
