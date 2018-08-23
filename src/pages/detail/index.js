@@ -10,9 +10,10 @@ import {
 
 class Detail extends Component {
   componentDidMount() {
-    this.props.getDetail()
+    this.props.getDetail(this.props.match.params.id)
   }
   render() {
+    console.log(this.props)
     return(
       <DetailWrapper>
         <Header>{this.props.title}</Header>
@@ -27,8 +28,8 @@ const mapState = state => ({
   content: state.getIn(['detail', 'content'])
 })
 const mapDispatch = dispatch => ({
-  getDetail() {
-    dispatch(actionCreators.getDetail())
+  getDetail(id) {
+    dispatch(actionCreators.getDetail(id))
   }
 })
 

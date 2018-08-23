@@ -33,7 +33,7 @@ class List extends PureComponent {
               appear = {true}
               key={item.get('id')}
             >
-              <Link to="/detail" >
+              <Link to={`detail/${item.get('id')}`}>
                 <ListItem>
                   <img className="pic" src={item.get('imgUrl')} alt={item.get('title')} />
                   <ListInfo>
