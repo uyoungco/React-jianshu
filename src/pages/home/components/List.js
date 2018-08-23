@@ -18,17 +18,10 @@ class List extends PureComponent {
       show: true
     }
   }
-  hanedleShow() {
-    this.setState({
-      show: this.state.show ? false : true
-    })
-  }
-
   render() {
     const { list, getMoreList, page } = this.props
     return(
       <div>
-        <button onClick={() => this.hanedleShow()}>显示隐藏</button>
         <TransitionGroup
         >
         {
